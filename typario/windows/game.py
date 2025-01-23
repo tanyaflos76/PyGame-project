@@ -3,9 +3,13 @@ import pygame
 from typario.core.config import GameConfig
 from typario.lib.spawner import Spawner
 
+from .enum import States
+
 
 class TypingGameWindow:
     def __init__(self, screen: pygame.Surface, word_list_file: str):
+        self._label = States.game
+
         self.spawner = Spawner(word_list_file)
         self.screen = screen
         self.clock = pygame.time.Clock()
@@ -13,6 +17,9 @@ class TypingGameWindow:
 
         self.font = pygame.font.Font(None, 36)
         self.text_rect = pygame.Rect(50, 250, 700, 400)
+
+    def is_running(self, state: States):
+        return self._label == state
 
     def render(self):
         self.screen.fill((0, 0, 0))
