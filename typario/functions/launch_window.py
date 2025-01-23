@@ -1,6 +1,7 @@
 import logging
 
 import pygame
+
 from typario.core.config import GameConfig
 from typario.functions.classes import Button
 from typario.functions.utils import load_image, terminate
@@ -32,8 +33,8 @@ def start_screen():
         intro_rect.left = text_coord + 260
         screen.blit(string_rendered, intro_rect)
 
-    button1 = Button(screen, pygame.font.Font('data/font_2.ttf', 40), 390, 370, 400, 80, 'Русский язык')
-    button2 = Button(screen, pygame.font.Font('data/font_2.ttf', 40), 390, 480, 400, 80, 'English language')
+    button1 = Button(screen, pygame.font.Font("data/font_2.ttf", 40), 390, 370, 400, 80, "Русский язык")
+    button2 = Button(screen, pygame.font.Font("data/font_2.ttf", 40), 390, 480, 400, 80, "English language")
     pygame.draw.rect(screen, (255, 255, 255), ((290, 315), (600, 305)), 2)
     buttons.append(button1)
     buttons.append(button2)
