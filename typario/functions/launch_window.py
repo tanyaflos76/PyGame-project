@@ -51,6 +51,6 @@ def start_screen():
             for button in buttons:
                 button.process()
                 if button_is_clicked:
-                    terminate()
+                    return button_is_clicked
         pygame.display.flip()
         clock.tick(config.fps)
