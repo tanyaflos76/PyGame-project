@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, Any
 import pygame
 from pygame.event import Event
 
-from typario.functions.classes import Button
+from typario.components.button import Button
 from typario.functions.utils import load_image
 
 from .abc import BaseScreen

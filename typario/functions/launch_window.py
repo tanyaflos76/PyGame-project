@@ -2,8 +2,8 @@ import logging
 
 import pygame
 
+from typario.components.button import Button
 from typario.core.config import GameConfig
-from typario.functions.classes import Button
 from typario.functions.utils import load_image, terminate
 
 
