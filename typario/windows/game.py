@@ -1,32 +1,32 @@
+import logging
+from typing import TYPE_CHECKING
+
 import pygame
+from pygame.event import Event
 
-from typario.core.config import GameConfig
 from typario.lib.spawner import Spawner
+from typario.windows.abc import BaseScreen
 
-from .enum import States
+
+if TYPE_CHECKING:
+    from typario.game import Game
 
 
-class TypingGameWindow:
-    def __init__(self, screen: pygame.Surface, word_list_file: str):
-        self._label = States.game
-
+class GameWindow(BaseScreen):
+    def __init__(self, game: "Game", word_list_file: str):
+        super().__init__(game)
         self.spawner = Spawner(word_list_file)
-        self.screen = screen
-        self.clock = pygame.time.Clock()
-        self.config = GameConfig()
+        self.spawner.spawn_words()
 
         self.font = pygame.font.Font(None, 36)
-        self.text_rect = pygame.Rect(50, 250, 700, 400)
+        self.text_rect = pygame.Rect(20, 400, 1250, 400)
 
-    def is_running(self, state: States):
-        return self._label == state
-
-    def render(self):
-        self.screen.fill((0, 0, 0))
+    def render(self, surface: pygame.Surface):
+        surface.fill((100, 100, 100))
         words = " ".join(self.spawner.current_words)
         red, green = self.spawner.red_indexes, self.spawner.green_indexes
         self.draw_text(
-            self.screen,
+            surface,
             words,
             (255, 255, 255),
             self.text_rect,
@@ -35,10 +35,13 @@ class TypingGameWindow:
             green_indexes=green,
         )
 
-        pygame.display.flip()  # Update the display
-
-    def handle_input(self, input: str):
-        self.spawner.input(input)
+    def handle_events(self, events: list[Event]) -> None:
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                if event.key and event.key == pygame.K_ESCAPE:
+                    self.next_screen = ("menu",)
+                elif event.unicode:
+                    self.spawner.handle_input(event.unicode)
 
     def draw_text(
         self,

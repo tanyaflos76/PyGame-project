@@ -1,7 +1,9 @@
-from functions.launch_window import start_screen
+import pygame
 
+from typario.game import Game
 
-# TODO: implement Game class
 
 if __name__ == "__main__":
-    start_screen()
+    game = Game()
+    game.run()
+    pygame.quit()

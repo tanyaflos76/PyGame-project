@@ -16,7 +16,7 @@ class Spawner:
         self.current_words = random.choices(self.word_list, k=self._amount)
         self.user_input = ""
 
-    def input(self, input: str):
+    def handle_input(self, input: str):
         if self.user_input and input == "\b":  # backspace
             self.user_input = self.user_input[:-1]
         if input != "\b":
