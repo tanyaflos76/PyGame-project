@@ -29,7 +29,7 @@ class Button:
         self.button_rect = pygame.Rect((self.x, self.y), (self.width, self.height))
         self.button_surf = self.font.render(button_text, True, (20, 20, 20))
 
-    def process(self) -> None:
+    def render(self) -> None:
         mouse_pos = pygame.mouse.get_pos()
         self.button_surface.fill(self.fill_colors["normal"])
         if self.button_rect.collidepoint(mouse_pos):
@@ -54,6 +54,6 @@ class Button:
             and (mouse_pos[0] <= self.button_rect.right)
             and ((mouse_pos[1] >= self.button_rect.top) and (mouse_pos[1] <= self.button_rect.bottom))
         ):
-            self.process()
+            self.render()
             return True
         return False

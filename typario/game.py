@@ -6,6 +6,7 @@ import pygame
 from typario.core.config import GameConfig
 from typario.windows import GameWindow
 from typario.windows.abc import BaseScreen
+from typario.windows.difficulty import DifficultyWindow
 from typario.windows.menu import MenuWindow
 
 
@@ -28,6 +29,7 @@ class Game:
         self.current_screen: BaseScreen | None = None
         self.screens: dict[str, type[BaseScreen]] = {
             "menu": MenuWindow,
+            "difficulty": DifficultyWindow,
             "game": GameWindow,
         }
 

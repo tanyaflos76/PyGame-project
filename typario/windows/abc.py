@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 class BaseScreen(ABC):
     def __init__(self, game: "Game", **kwargs: Any):
         self.game = game
-        self.next_screen: Any = None
+        self.next_screen: tuple[str, dict[str, Any]] | tuple[str] | None = None
         self.kwargs = kwargs
 
     @abstractmethod
