@@ -62,7 +62,7 @@ class GameWindow(BaseScreen):
         self.draw_hp_bar(surface)
 
     def game_over(self):
-        self.next_screen = ("game_over", {"language": self.word_list_file})
+        self.next_screen = ("game_over", {"language": self.word_list_file,'score': self.spawner.score})
 
     def draw_hp_bar(self, surface: pygame.Surface):
         max_hp = 100
