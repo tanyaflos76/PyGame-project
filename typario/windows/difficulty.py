@@ -7,7 +7,6 @@ from typario.components.button import Button
 from typario.utils.image import load_image
 from typario.windows.abc import BaseScreen
 
-
 if TYPE_CHECKING:
     from typario.game import Game
 
@@ -25,9 +24,9 @@ class DifficultyWindow(BaseScreen):
             "russian": [["Уровень сложности"], "легкий", "средний", "трудный"],
         }
 
-        self.easy = Button(game.screen, self.btn_font, 390, 280, 400, 80, self.options[self.language][1])
-        self.normal = Button(game.screen, self.btn_font, 390, 410, 400, 80, self.options[self.language][2])
-        self.hard = Button(game.screen, self.btn_font, 390, 540, 400, 80, self.options[self.language][3])
+        self.easy = Button(game.screen, self.btn_font, 410, 280, 400, 80, self.options[self.language][1])
+        self.normal = Button(game.screen, self.btn_font, 410, 410, 400, 80, self.options[self.language][2])
+        self.hard = Button(game.screen, self.btn_font, 410, 540, 400, 80, self.options[self.language][3])
         self.buttons = [self.easy, self.normal, self.hard]
         self.difficulty_level: int = 0
 
@@ -35,6 +34,9 @@ class DifficultyWindow(BaseScreen):
         for event in events:
             if event.type == pygame.QUIT:
                 pass
+            elif event.type == pygame.KEYDOWN:
+                if event.key and event.key == pygame.K_ESCAPE:
+                    self.next_screen = ("menu",)
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if self.easy.get_click(event.pos):
                     self.difficulty_level = 1
@@ -58,7 +60,7 @@ class DifficultyWindow(BaseScreen):
         surface.blit(self.background, (0, 0))
         text_coord = 60
         for line in self.options[self.language][0]:
-            string_rendered = self.font.render(line, 1, pygame.Color(255, 255, 255))
+            string_rendered = self.font.render(line, 1, pygame.Color(148, 226, 213))
             text_rect = string_rendered.get_rect()
             text_rect.top = text_coord
             if self.language == "russian":
@@ -70,4 +72,4 @@ class DifficultyWindow(BaseScreen):
         for button in self.buttons:
             button.render()
 
-        pygame.draw.rect(surface, (255, 255, 255), ((290, 250), (600, 400)), 2)
+        pygame.draw.rect(surface, '#cdd6f4', ((310, 250), (620, 400)), 2)

@@ -7,6 +7,7 @@ from typario.core.config import GameConfig
 from typario.windows import GameWindow
 from typario.windows.abc import BaseScreen
 from typario.windows.difficulty import DifficultyWindow
+from typario.windows.game_over import GameOverScreen
 from typario.windows.menu import MenuWindow
 
 
@@ -31,6 +32,7 @@ class Game:
             "menu": MenuWindow,
             "difficulty": DifficultyWindow,
             "game": GameWindow,
+            "game_over": GameOverScreen,
         }
 
     def switch_screen(self, screen_name: str, **kwargs: Any):

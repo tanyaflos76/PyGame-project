@@ -20,8 +20,8 @@ class MenuWindow(BaseScreen):
         self.font = pygame.font.Font("data/font_1.otf", 230)
         self.btn_font = pygame.font.Font("data/font_2.ttf", 40)
 
-        self.rus_lang = Button(game.screen, self.btn_font, 390, 370, 400, 80, "Русский язык")
-        self.eng_lang = Button(game.screen, self.btn_font, 390, 480, 400, 80, "English language")
+        self.rus_lang = Button(game.screen, self.btn_font, 410, 370, 400, 80, "Русский язык")
+        self.eng_lang = Button(game.screen, self.btn_font, 410, 480, 400, 80, "English language")
         self.buttons = [self.rus_lang, self.eng_lang]
         self.button_is_clicked = 0
 
@@ -55,3 +55,5 @@ class MenuWindow(BaseScreen):
             surface.blit(string_rendered, intro_rect)
         for button in self.buttons:
             button.render()
+        pygame.draw.rect(surface, '#cdd6f4', ((310, 300), (620, 330)), 2)
+

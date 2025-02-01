@@ -6,7 +6,6 @@ from pygame.event import Event
 from typario.lib.spawner import Spawner
 from typario.windows.abc import BaseScreen
 
-
 if TYPE_CHECKING:
     from typario.game import Game
 
@@ -14,7 +13,8 @@ if TYPE_CHECKING:
 class GameWindow(BaseScreen):
     def __init__(self, game: "Game", word_list_file: str):
         super().__init__(game)
-        self.spawner = Spawner(word_list_file)
+        self.word_list_file = word_list_file
+        self.spawner = Spawner(self.word_list_file)
         self.spawner.spawn_words()
 
         self.font = pygame.font.Font("data/font_3.ttf", 30)
@@ -62,7 +62,7 @@ class GameWindow(BaseScreen):
         self.draw_hp_bar(surface)
 
     def game_over(self):
-        self.next_screen = ("menu",)
+        self.next_screen = ("game_over", {"language": self.word_list_file})
 
     def draw_hp_bar(self, surface: pygame.Surface):
         max_hp = 100
@@ -75,17 +75,17 @@ class GameWindow(BaseScreen):
         )  # зеленый
 
     def draw_text(
-        self,
-        surface: pygame.Surface,
-        text: str,
-        color: tuple[int, int, int],
-        rect: pygame.Rect,
-        font: pygame.font.Font,
-        aa: bool = False,
-        bkg: tuple[int, int, int] | None = None,
-        green_indexes: list[int] = [],
-        red_indexes: list[int] = [],
-        passed_indexes: list[int] = [],
+            self,
+            surface: pygame.Surface,
+            text: str,
+            color: tuple[int, int, int],
+            rect: pygame.Rect,
+            font: pygame.font.Font,
+            aa: bool = False,
+            bkg: tuple[int, int, int] | None = None,
+            green_indexes: list[int] = [],
+            red_indexes: list[int] = [],
+            passed_indexes: list[int] = [],
     ):
         lineSpacing = -2
         spaceWidth, fontHeight = font.size("")[0], font.size("Tg")[1]
