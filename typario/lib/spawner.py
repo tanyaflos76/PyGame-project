@@ -105,5 +105,6 @@ class Spawner:
 
     def _extract_words(self, filename: str) -> list[str]:
         """Takes JSON with `words: list[str]` attribute"""
-        with open(filename, "r") as f:
+        filepath = f"data/languages/{filename}.json"
+        with open(filepath, "r") as f:
             return json.load(f)["words"]
