@@ -20,7 +20,7 @@ class Button:
         self.font = font
 
         self.fill_colors = {
-            "normal": "#FFFFFF",
+            "normal": "#cdd6f4",
             "hover": "#587E89",
             "pressed": "#03202E",
         }

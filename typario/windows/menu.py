@@ -31,7 +31,7 @@ class MenuWindow(BaseScreen):
         surface.blit(self.background, (0, 0))
         text_coord = 20
         for line in intro_text:
-            string_rendered = self.font.render(line, 1, pygame.Color(255, 255, 255))
+            string_rendered = self.font.render(line, 1, pygame.Color(148, 226, 213))
             intro_rect = string_rendered.get_rect()
             intro_rect.top = text_coord
             intro_rect.left = text_coord + 260
