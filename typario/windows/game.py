@@ -17,52 +17,10 @@ class GameWindow(BaseScreen):
         self.spawner = Spawner(word_list_file)
         self.spawner.spawn_words()
 
-        self.font = pygame.font.Font(None, 36)
+        self.font = pygame.font.Font("data/font_3.ttf", 30)
         self.text_rect = pygame.Rect(20, 400, 1250, 400)
         self.score_rect = pygame.Rect(20, 20, 200, 40)
         self.hp_rect = pygame.Rect(20, 60, 200, 20)
-
-    def render(self, surface: pygame.Surface):
-        surface.fill((100, 100, 100))
-
-        words = " ".join(self.spawner.current_words)
-        red, green, passed = self.spawner.red_indexes, self.spawner.green_indexes, self.spawner.passed_indexes
-        # Drawing words
-        self.draw_text(
-            surface,
-            words,
-            (255, 255, 255),
-            self.text_rect,
-            self.font,
-            red_indexes=red,
-            green_indexes=green,
-            passed_indexes=passed,
-        )
-        self.draw_text(
-            surface,
-            f"Score: {self.spawner.score}",
-            (255, 255, 255),
-            self.score_rect,
-            self.font,
-        )
-        self.draw_text(
-            surface,
-            f"HP: {self.spawner.hp}",
-            (255, 255, 255),
-            self.hp_rect,
-            self.font,
-        )
-        self.draw_hp_bar(surface)
-
-    def draw_hp_bar(self, surface: pygame.Surface):
-        max_hp = 100
-        current_hp = self.spawner.hp
-
-        hp_width = int((current_hp / max_hp) * self.hp_rect.width)
-
-        pygame.draw.rect(surface, (255, 0, 0), self.hp_rect)  # Красный фон
-
-        pygame.draw.rect(surface, (0, 255, 0), (self.hp_rect.x, self.hp_rect.y, hp_width, self.hp_rect.height))
 
     def handle_events(self, events: list[Event]) -> None:
         for event in events:
@@ -77,9 +35,44 @@ class GameWindow(BaseScreen):
         if self.spawner.hp <= 0:
             self.game_over()
 
+    def render(self, surface: pygame.Surface):
+        surface.fill((30, 30, 46))
+
+        words = " ".join(self.spawner.current_words)
+        red, green, passed = self.spawner.red_indexes, self.spawner.green_indexes, self.spawner.passed_indexes
+        # Drawing words
+        self.draw_text(
+            surface,
+            words,
+            (255, 255, 255),
+            self.text_rect,
+            self.font,
+            red_indexes=red,
+            green_indexes=green,
+            passed_indexes=passed,
+        )
+        # Drawing score
+        self.draw_text(
+            surface,
+            f"Score: {self.spawner.score}",
+            (203, 166, 247),
+            self.score_rect,
+            self.font,
+        )
+        self.draw_hp_bar(surface)
+
     def game_over(self):
-        print("Game Over!")
         self.next_screen = ("menu",)
+
+    def draw_hp_bar(self, surface: pygame.Surface):
+        max_hp = 100
+        current_hp = self.spawner.hp
+
+        hp_width = int((current_hp / max_hp) * self.hp_rect.width)
+        pygame.draw.rect(surface, (243, 139, 168), self.hp_rect)  # Красный фон
+        pygame.draw.rect(
+            surface, (166, 227, 161), (self.hp_rect.x, self.hp_rect.y, hp_width, self.hp_rect.height)
+        )  # зеленый
 
     def draw_text(
         self,
@@ -140,14 +133,14 @@ class GameWindow(BaseScreen):
 
                 if letter_index in green_indexes:
                     image = image.convert_alpha()
-                    image.fill((0, 255, 0), special_flags=pygame.BLEND_RGBA_MULT)
+                    image.fill((166, 227, 161), special_flags=pygame.BLEND_RGBA_MULT)
                 elif letter_index in red_indexes:
                     image = image.convert_alpha()
-                    image.fill((255, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+                    image.fill((243, 139, 168), special_flags=pygame.BLEND_RGBA_MULT)
 
                 if word_index in passed_indexes:
                     image = image.convert_alpha()
-                    image.fill((164, 164, 164), special_flags=pygame.BLEND_RGBA_MULT)
+                    image.fill((127, 132, 156), special_flags=pygame.BLEND_RGBA_MULT)
 
                 surface.blit(image, (round(x), y))
                 lineLeft += image.get_width()

@@ -4,7 +4,7 @@ import pygame
 from pygame.event import Event
 
 from typario.components.button import Button
-from typario.functions.utils import load_image
+from typario.utils.image import load_image
 
 from .abc import BaseScreen
 

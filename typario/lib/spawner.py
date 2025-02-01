@@ -7,6 +7,7 @@ import time
 logger = logging.getLogger(__name__)
 
 
+# FIX: класс-бог, ето плохо
 class Spawner:
     def __init__(self, filename: str) -> None:
         self.filename: str = filename
@@ -20,7 +21,7 @@ class Spawner:
         self.last_update_time: float = time.time()
 
         self._points_for_word: int = 10
-        self._hp_for_word: int = 2
+        self._hp_for_word: int = 10
         self._latency: float = 0.1
 
     def spawn_words(self) -> None:
@@ -53,15 +54,20 @@ class Spawner:
             self.spawn_words()
 
     def _update_score(self):
-        for _, (user_word, target_word) in enumerate(zip(self.user_words, self.current_words)):
-            if user_word == target_word:
-                self.score += self._points_for_word  # Начисляем очки за правильно введенное слово
-                self.hp = min(100, self.hp + self._hp_for_word)
-            else:
-                # Снимаем очки за каждый неправильный символ
-                incorrect = sum(1 for c1, c2 in zip(user_word, target_word) if c1 != c2)
-                self.score = max(0, self.score - incorrect)
-                self.hp = max(0, self.hp - incorrect)
+        last_word_idx = len(self.user_words) - 1
+        if last_word_idx < 0 or last_word_idx >= len(self.current_words):
+            return  # Если нет введенных слов, выходим
+
+        user_word = self.user_words[last_word_idx]
+        target_word = self.current_words[last_word_idx]
+
+        if user_word == target_word:
+            self.score += self._points_for_word
+            self.hp = min(100, self.hp + self._hp_for_word)
+        else:
+            incorrect = sum(1 for c1, c2 in zip(user_word, target_word) if c1 != c2)
+            self.score = max(0, self.score - incorrect)
+            self.hp = max(0, self.hp - incorrect)
 
     def update_hp(self):
         current_time = time.time()
