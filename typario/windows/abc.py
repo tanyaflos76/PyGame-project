@@ -20,5 +20,9 @@ class BaseScreen(ABC):
         pass
 
     @abstractmethod
+    def update(self) -> None:
+        pass
+
+    @abstractmethod
     def render(self, surface: pygame.Surface) -> None:
         pass

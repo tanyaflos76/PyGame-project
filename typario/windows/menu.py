@@ -39,6 +39,9 @@ class MenuWindow(BaseScreen):
         for button in self.buttons:
             button.process()
 
+    def update(self) -> None:
+        return super().update()
+
     def handle_events(self, events: list[Event]) -> None:
         for event in events:
             if event.type == pygame.QUIT:
@@ -48,5 +51,8 @@ class MenuWindow(BaseScreen):
                     self.button_is_clicked = 1
                 elif self.eng_lang.get_click(event.pos):
                     self.button_is_clicked = 2
-            if self.button_is_clicked:
+            # FIX: hard-coded ....
+            if self.button_is_clicked == 1:
+                self.next_screen = ("game", {"word_list_file": "data/languages/russian.json"})
+            elif self.button_is_clicked == 2:
                 self.next_screen = ("game", {"word_list_file": "data/languages/english.json"})

@@ -1,3 +1,4 @@
+import logging
 from typing import Any
 
 import pygame
@@ -11,6 +12,11 @@ from typario.windows.menu import MenuWindow
 class Game:
     def __init__(self):
         pygame.init()
+
+        logging.basicConfig(
+            level=logging.DEBUG,
+            format="%(asctime)s   %(name)-25s %(levelname)-8s %(message)s",
+        )
 
         self.config = GameConfig()
 
@@ -48,6 +54,7 @@ class Game:
                 self.current_screen.next_screen = None
 
             self.screen.fill((0, 0, 0))
+            self.current_screen.update()
             self.current_screen.render(self.screen)
             pygame.display.flip()
             self.clock.tick(self.config.fps)
