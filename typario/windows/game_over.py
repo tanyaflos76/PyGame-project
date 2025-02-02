@@ -17,8 +17,8 @@ class GameOverScreen(BaseScreen):
     def __init__(self, game: "Game", language: str, score: int):
         super().__init__(game)
         self.background = pygame.transform.scale(load_image("background_1.jpg"), game.size)
-        self.font = pygame.font.Font("data/font_1.otf", 170)
-        self.font_score = pygame.font.Font("data/font_1.otf", 100)
+        self.font = pygame.font.Font("data/font_1.otf", 150)
+        self.font_score = pygame.font.Font("data/font_1.otf", 70)
         self.btn_font = pygame.font.Font("data/font_2.ttf", 40)
         self.language_main = language
         if 'english' in self.language_main:
@@ -75,14 +75,15 @@ class GameOverScreen(BaseScreen):
             text_rect = string_rendered.get_rect()
             text_rect.top = text_coord
             if self.language == "russian":
-                text_rect.x = 160
+                text_rect.x = 205
             else:
-                text_rect.x = 270
+                text_rect.x = 310
             if i == 1 and self.language == "russian":
-                text_rect.x += 155
+                text_rect.x += 175
+                text_rect.y += 30
             elif i == 1 and self.language == "english":
-                text_rect.x += 60
-            text_rect.y += 1
+                text_rect.x += 80
+                text_rect.y += 30
             text_coord += text_rect.height
             surface.blit(string_rendered, text_rect)
         for button in self.buttons:
