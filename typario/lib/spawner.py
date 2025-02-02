@@ -3,7 +3,6 @@ import logging
 import random
 import time
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -11,6 +10,13 @@ logger = logging.getLogger(__name__)
 class Spawner:
     def __init__(self, filename: str) -> None:
         self.filename: str = filename
+        if "10k" in filename:
+            self.level = 1.5
+        elif "1k" in filename:
+            self.level = 1
+        else:
+            self.level = 0.5
+
         self.word_list: list[str] = self._extract_words(self.filename)
         self.user_words: list[str] = []
 
@@ -66,12 +72,12 @@ class Spawner:
             self.hp = min(100, self.hp + self._hp_for_word)
         else:
             incorrect = sum(1 for c1, c2 in zip(user_word, target_word) if c1 != c2)
-            self.score = max(0, self.score - incorrect)
-            self.hp = max(0, self.hp - incorrect)
+            self.score = max(0, self.score - int(incorrect * self.level))
+            self.hp = max(0, self.hp - int(incorrect * self.level))
 
     def update_hp(self):
         current_time = time.time()
-        if current_time - self.last_update_time >= self._latency:  # Уменьшаем HP каждую секунду
+        if current_time - self.last_update_time >= (self._latency / self.level):  # Уменьшаем HP каждую секунду
             self.hp = max(0, self.hp - 1)
             self.last_update_time = current_time
 
