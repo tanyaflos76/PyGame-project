@@ -4,14 +4,15 @@ import pygame
 from pygame.event import Event
 
 from typario.components.button import Button
+from typario.screens.abc import BaseScreen
 from typario.utils.image import load_image
-from typario.windows.abc import BaseScreen
+
 
 if TYPE_CHECKING:
     from typario.game import Game
 
 
-class DifficultyWindow(BaseScreen):
+class DifficultyScreen(BaseScreen):
     def __init__(self, game: "Game", language: str):
         self.background = pygame.transform.scale(load_image("background_1.jpg"), game.size)
         self.font = pygame.font.Font("data/font_1.otf", 120)

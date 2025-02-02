@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from typario.game import Game
 
 
-class MenuWindow(BaseScreen):
+class MenuScreen(BaseScreen):
     def __init__(self, game: "Game"):
         super().__init__(game)
         self.background = pygame.transform.scale(load_image("background_1.jpg"), game.size)

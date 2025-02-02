@@ -4,14 +4,14 @@ import pygame
 from pygame.event import Event
 
 from typario.lib.spawner import Spawner
-from typario.windows.abc import BaseScreen
+from typario.screens.abc import BaseScreen
 
 
 if TYPE_CHECKING:
     from typario.game import Game
 
 
-class GameWindow(BaseScreen):
+class GameScreen(BaseScreen):
     def __init__(self, game: "Game", word_list_file: str):
         super().__init__(game)
         self.word_list_file = word_list_file

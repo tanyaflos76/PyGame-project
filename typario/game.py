@@ -5,12 +5,8 @@ from typing import Any
 import pygame
 
 from typario.core.config import GameConfig
+from typario.screens import BaseScreen, DifficultyScreen, GameOverScreen, GameScreen, MenuScreen
 from typario.utils.records import init_db
-from typario.windows import GameWindow
-from typario.windows.abc import BaseScreen
-from typario.windows.difficulty import DifficultyWindow
-from typario.windows.game_over import GameOverScreen
-from typario.windows.menu import MenuWindow
 
 
 class Game:
@@ -32,9 +28,9 @@ class Game:
 
         self.current_screen: BaseScreen | None = None
         self.screens: dict[str, type[BaseScreen]] = {
-            "menu": MenuWindow,
-            "difficulty": DifficultyWindow,
-            "game": GameWindow,
+            "menu": MenuScreen,
+            "difficulty": DifficultyScreen,
+            "game": GameScreen,
             "game_over": GameOverScreen,
         }
 
