@@ -1,21 +1,31 @@
 import sqlite3
 
 
-def add_value(score):
+def init_db() -> None:
     con = sqlite3.connect("data/records.db")
     cur = con.cursor()
-    query1 = f'''insert into records (value) Values ({score})'''
-    cur.execute(query1)
+    query = """
+    CREATE TABLE IF NOT EXISTS records (
+        value INT
+    )
+    """
+    cur.execute(query)
     con.commit()
-    con.close()
-    return
 
 
-def find_record(score):
+def add_value(score: int) -> None:
     con = sqlite3.connect("data/records.db")
     cur = con.cursor()
-    query2 = '''select max(value) from records'''
-    res2 = cur.execute(query2).fetchone()
+    query = f"""insert into records (value) Values ({score})"""
+    cur.execute(query)
     con.commit()
     con.close()
-    return list(res2)[0]
+
+
+def find_record() -> int:
+    con = sqlite3.connect("data/records.db")
+    cur = con.cursor()
+    query = """select max(value) from records"""
+    res = cur.execute(query).fetchone()
+    con.close()
+    return list(res)[0]

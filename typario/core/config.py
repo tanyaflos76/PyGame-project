@@ -29,3 +29,4 @@ class BaseConfig(BaseSettings):
 
 class GameConfig(BaseConfig):
     fps: int = Field(default=60)
+    debug: bool = Field(default=False)

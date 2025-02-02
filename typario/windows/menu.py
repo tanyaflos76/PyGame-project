@@ -55,5 +55,4 @@ class MenuWindow(BaseScreen):
             surface.blit(string_rendered, intro_rect)
         for button in self.buttons:
             button.render()
-        pygame.draw.rect(surface, '#cdd6f4', ((310, 300), (620, 330)), 2)
-
+        pygame.draw.rect(surface, "#cdd6f4", ((310, 300), (620, 330)), 2)

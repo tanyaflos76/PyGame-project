@@ -5,6 +5,7 @@ from typing import Any
 import pygame
 
 from typario.core.config import GameConfig
+from typario.utils.records import init_db
 from typario.windows import GameWindow
 from typario.windows.abc import BaseScreen
 from typario.windows.difficulty import DifficultyWindow
@@ -15,13 +16,14 @@ from typario.windows.menu import MenuWindow
 class Game:
     def __init__(self):
         pygame.init()
-
-        logging.basicConfig(
-            level=logging.DEBUG,
-            format="%(asctime)s   %(name)-25s %(levelname)-8s %(message)s",
-        )
+        init_db()
 
         self.config = GameConfig()
+        if self.config.debug:
+            logging.basicConfig(
+                level=logging.DEBUG,
+                format="%(asctime)s   %(name)-25s %(levelname)-8s %(message)s",
+            )
 
         self.size = 1280, 720
         self.screen = pygame.display.set_mode(self.size)

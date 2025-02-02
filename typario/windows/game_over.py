@@ -6,8 +6,9 @@ from pygame.event import Event
 from typario.components.button import Button
 from typario.utils.image import load_image
 
+from ..utils.records import add_value, find_record
 from .abc import BaseScreen
-from ..utils.records import find_record, add_value
+
 
 if TYPE_CHECKING:
     from typario.game import Game
@@ -21,12 +22,12 @@ class GameOverScreen(BaseScreen):
         self.font_score = pygame.font.Font("data/font_1.otf", 70)
         self.btn_font = pygame.font.Font("data/font_2.ttf", 40)
         self.language_main = language
-        if 'english' in self.language_main:
-            self.language = 'english'
-        elif 'russian' in self.language_main:
-            self.language = 'russian'
+        if "english" in self.language_main:
+            self.language = "english"
+        elif "russian" in self.language_main:
+            self.language = "russian"
         add_value(score)
-        self.record = find_record(score)
+        self.record = find_record()
 
         self.options = {
             "russian": [["Игра окончена", f"Ваш рекорд: {self.record}"], "обратно в меню", "повторить", "выйти"],
@@ -88,4 +89,4 @@ class GameOverScreen(BaseScreen):
             surface.blit(string_rendered, text_rect)
         for button in self.buttons:
             button.render()
-        pygame.draw.rect(surface, '#cdd6f4', ((310, 330), (610, 340)), 2)
+        pygame.draw.rect(surface, "#cdd6f4", ((310, 330), (610, 340)), 2)

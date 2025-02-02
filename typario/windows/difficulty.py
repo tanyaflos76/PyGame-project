@@ -72,4 +72,4 @@ class DifficultyWindow(BaseScreen):
         for button in self.buttons:
             button.render()
 
-        pygame.draw.rect(surface, '#cdd6f4', ((310, 250), (620, 400)), 2)
+        pygame.draw.rect(surface, "#cdd6f4", ((310, 250), (620, 400)), 2)
