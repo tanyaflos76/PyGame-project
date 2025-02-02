@@ -64,9 +64,9 @@ class DifficultyWindow(BaseScreen):
             text_rect = string_rendered.get_rect()
             text_rect.top = text_coord
             if self.language == "russian":
-                text_rect.x = 140
+                text_rect.x = 150
             else:
-                text_rect.x = 280
+                text_rect.x = 290
             text_coord += text_rect.height
             surface.blit(string_rendered, text_rect)
         for button in self.buttons:

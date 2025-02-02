@@ -29,12 +29,13 @@ class GameOverScreen(BaseScreen):
         self.record = find_record(score)
 
         self.options = {
-            "russian": [["Игра окончена", f"Ваш рекорд: {self.record}"], "обратно в меню", "повторить"],
-            "english": [["Game over", f"Your record: {self.record}"], "back to menu", "retry"],
+            "russian": [["Игра окончена", f"Ваш рекорд: {self.record}"], "обратно в меню", "повторить", "выйти"],
+            "english": [["Game over", f"Your record: {self.record}"], "back to menu", "retry", "exit"],
         }
-        self.to_menu = Button(game.screen, self.btn_font, 410, 400, 400, 80, self.options[self.language][1])
-        self.retry = Button(game.screen, self.btn_font, 410, 510, 400, 80, self.options[self.language][2])
-        self.buttons = [self.retry, self.to_menu]
+        self.to_menu = Button(game.screen, self.btn_font, 410, 360, 400, 80, self.options[self.language][1])
+        self.retry = Button(game.screen, self.btn_font, 410, 460, 400, 80, self.options[self.language][2])
+        self.exit = Button(game.screen, self.btn_font, 410, 560, 400, 80, self.options[self.language][3])
+        self.buttons = [self.retry, self.to_menu, self.exit]
         self.button_is_clicked = 0
 
     def handle_events(self, events: list[Event]) -> None:
@@ -49,11 +50,15 @@ class GameOverScreen(BaseScreen):
                     self.button_is_clicked = 1
                 elif self.to_menu.get_click(event.pos):
                     self.button_is_clicked = 2
+                elif self.exit.get_click(event.pos):
+                    self.button_is_clicked = 3
             # FIX: hard-coded ....
             if self.button_is_clicked == 2:
                 self.next_screen = ("menu",)
             elif self.button_is_clicked == 1:
                 self.next_screen = ("game", {"word_list_file": f"{self.language_main}"})
+            elif self.button_is_clicked == 3:
+                self.next_screen = ("exit",)
 
     def update(self) -> None:
         return super().update()
@@ -74,9 +79,9 @@ class GameOverScreen(BaseScreen):
             else:
                 text_rect.x = 270
             if i == 1 and self.language == "russian":
-                text_rect.x += 160
+                text_rect.x += 155
             elif i == 1 and self.language == "english":
-                text_rect.x += 65
+                text_rect.x += 60
             text_rect.y += 1
             text_coord += text_rect.height
             surface.blit(string_rendered, text_rect)

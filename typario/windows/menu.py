@@ -51,7 +51,7 @@ class MenuWindow(BaseScreen):
             string_rendered = self.font.render(line, 1, pygame.Color(148, 226, 213))
             intro_rect = string_rendered.get_rect()
             intro_rect.top = text_coord
-            intro_rect.left = text_coord + 260
+            intro_rect.left = text_coord + 270
             surface.blit(string_rendered, intro_rect)
         for button in self.buttons:
             button.render()

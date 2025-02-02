@@ -1,4 +1,5 @@
 import logging
+import sys
 from typing import Any
 
 import pygame
@@ -54,6 +55,9 @@ class Game:
 
             if self.current_screen.next_screen:
                 next_name, *next_args = self.current_screen.next_screen
+                if next_name == "exit":
+                    sys.exit()
+
                 self.switch_screen(next_name, **next_args[0] if next_args else {})
                 self.current_screen.next_screen = None
 
